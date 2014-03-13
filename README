@@ -1,0 +1,7 @@
+The utility that pairs a list of names, to itself.
+The partnered names will not be paired to itself.
+
+Use the enter key to input names in addition to the add button.
+Use the delete key to delete names off of the list Partner A.
+
+Author: Kevin Ta
