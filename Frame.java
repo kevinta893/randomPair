@@ -1,13 +1,9 @@
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.awt.RenderingHints.Key;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JList;
-
-import java.awt.FlowLayout;
 
 import javax.swing.JTextField;
 import javax.swing.JButton;
@@ -24,7 +20,6 @@ import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -59,6 +54,7 @@ SOFTWARE.
  * @author Kevin
  *
  */
+@SuppressWarnings("serial")
 public class Frame extends JFrame {
 
 	private JPanel contentPane;
