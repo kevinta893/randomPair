@@ -31,6 +31,8 @@ import java.awt.event.KeyEvent;
  * The utility that pairs a list of names, to itself.
  * The partnered names will not be paired to itself.
  * 
+ * Use the enter key to input names in addition to the add button.
+ * Use the delete key to delete names off of the list Partner A.
  * 
 Copyright (c) 2014 Kevin Ta
 
@@ -51,7 +53,7 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
- * @author Kevin
+ * @author Kevin Ta
  *
  */
 @SuppressWarnings("serial")
