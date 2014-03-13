@@ -4,4 +4,6 @@ The partnered names will not be paired to itself.
 Use the enter key to input names in addition to the add button.
 Use the delete key to delete names off of the list Partner A.
 
+Uses the Mersenne Twister RNG to generate shuffles.
+
 Author: Kevin Ta
