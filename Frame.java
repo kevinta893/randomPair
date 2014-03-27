@@ -170,7 +170,7 @@ public class Frame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				//add a name only if the text is greater than 0 trimmed
 				if (txtName.getText().trim().length()>0){
-					nameA.addElement((nameA.size() + 1) + ". " + txtName.getText());
+					nameA.addElement(txtName.getText());
 					txtName.setText(""); 					//clear text when added
 				}
 			}
