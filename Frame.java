@@ -205,6 +205,18 @@ public class Frame extends JFrame {
 		});
 		btnClear.setBounds(12, 405, 65, 23);
 		contentPane.add(btnClear);
+		
+		JMenu mnAbout = new JMenu("About");
+		menuBar.add(mnAbout);
+		
+		JMenuItem mntmAbout = new JMenuItem("About...");
+		mntmAbout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				About.showDialog();
+			}
+		});
+		mnAbout.add(mntmAbout);
+
 	}
 
 	/**
