@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.Random;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.SwingConstants;
 
 
 /**
@@ -128,7 +129,7 @@ public class Frame extends JFrame {
 		nameB = new DefaultListModel<String>();
 		listB.setModel(nameB);
 		listB.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		listB.setBounds(223, 45, 201, 322);
+		listB.setBounds(234, 45, 190, 322);
 		contentPane.add(listB);
 
 		this.listA = new JList<String>();
@@ -145,7 +146,7 @@ public class Frame extends JFrame {
 		nameA = new DefaultListModel<String>();
 		listA.setModel(nameA);
 		listA.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		listA.setBounds(12, 45, 201, 322);
+		listA.setBounds(12, 45, 190, 322);
 		contentPane.add(listA);
 
 		txtName = new JTextField();
@@ -205,6 +206,12 @@ public class Frame extends JFrame {
 		});
 		btnClear.setBounds(12, 405, 65, 23);
 		contentPane.add(btnClear);
+		
+		JLabel label = new JLabel("->");
+		label.setFont(new Font("Dialog", Font.PLAIN, 15));
+		label.setHorizontalAlignment(SwingConstants.CENTER);
+		label.setBounds(207, 198, 20, 14);
+		contentPane.add(label);
 		
 		JMenu mnAbout = new JMenu("About");
 		menuBar.add(mnAbout);
