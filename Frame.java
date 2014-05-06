@@ -1,6 +1,6 @@
+import java.awt.Dimension;
 import java.awt.EventQueue;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JList;
@@ -12,6 +12,8 @@ import javax.swing.JLabel;
 import java.awt.Font;
 
 import javax.swing.DefaultListModel;
+//import javax.swing.JApplet;
+import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -25,7 +27,6 @@ import java.util.LinkedList;
 import java.util.Random;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-
 import java.awt.Color;
 
 
@@ -102,8 +103,7 @@ public class Frame extends JFrame {
 	 * Create the frame.
 	 */
 	public Frame() {
-		setTitle("Pair Up");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setPreferredSize(new Dimension(500, 500));
 		setBounds(100, 100, 500, 500);
 
 		Color themeColor = (partnerUp == true) ? ORANGE : BLUE;
@@ -217,7 +217,7 @@ public class Frame extends JFrame {
 				nameB.clear();
 			}
 		});
-		btnClear.setBounds(12, 405, 79, 23);
+		btnClear.setBounds(12, 405, 91, 23);
 		contentPane.add(btnClear);
 		
 		btnMode = new JButton("->");
