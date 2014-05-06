@@ -299,7 +299,9 @@ public class Frame extends JFrame {
 	 * Pairs up the list of names in A randomly with other members 
 	 * in list A.
 	 * Output is a list of names in B corresponding to the pairs on
-	 * A, where there are no reflexive relations.
+	 * A, where there are no reflexive relations. 
+	 * 
+	 * Maps A -> B only.
 	 */
 	private void pairUp(){
 
@@ -360,6 +362,15 @@ public class Frame extends JFrame {
 	}
 	
 	
+	/**
+	 * Pairs up every member to exactly one partner.
+	 * The difference here is that this function maps A -> B and B -> A.
+	 * If there is not enough names to partner up (ie, a list
+	 * with an odd number of names) then that partner is given
+	 * a null partner.
+	 * 
+	 * No reflexive partners.
+	 */
 	private void partnerUp(){
 		if (nameA.size() <= 1){
 			JOptionPane.showMessageDialog(this, "Enter at least two items to start pair up.", "Information", JOptionPane.INFORMATION_MESSAGE);
