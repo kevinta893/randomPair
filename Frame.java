@@ -166,6 +166,7 @@ public class Frame extends JFrame {
 			public void keyPressed(KeyEvent arg0) {
 				if (arg0.getKeyCode() == KeyEvent.VK_ENTER){
 					addName(txtName.getText());
+					txtName.requestFocus();
 				}
 			}
 		});
@@ -177,6 +178,7 @@ public class Frame extends JFrame {
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				addName(txtName.getText());
+				txtName.requestFocus();
 			}
 		});
 		btnAdd.setBounds(148, 13, 65, 23);
@@ -223,6 +225,8 @@ public class Frame extends JFrame {
 		btnMode = new JButton("->");
 		btnMode.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				nameB.clear();
 				
 				//toggle the mode
 				partnerUp = (partnerUp == true) ? false : true;
