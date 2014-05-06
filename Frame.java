@@ -70,10 +70,10 @@ public class Frame extends JFrame {
 	private DefaultListModel<String> nameB;
 
 	private Random rand = new MersenneTwister();
-	
-	
+
+
 	private static final int RETRY_MAX = 5000000;
-	
+
 	/**
 	 * Launch the application.
 	 */
@@ -110,7 +110,7 @@ public class Frame extends JFrame {
 				System.exit(0);
 			}
 		});
-		
+
 		JMenuItem mntmClear = new JMenuItem("Clear");
 		mntmClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -154,11 +154,7 @@ public class Frame extends JFrame {
 			@Override
 			public void keyPressed(KeyEvent arg0) {
 				if (arg0.getKeyCode() == KeyEvent.VK_ENTER){
-					//add a name only if the text is greater than 0 trimmed
-					if (txtName.getText().trim().length()>0){
-						nameA.addElement(txtName.getText());
-						txtName.setText(""); 					//clear text when added
-					}
+					addName(txtName.getText());
 				}
 			}
 		});
@@ -169,11 +165,7 @@ public class Frame extends JFrame {
 		JButton btnAdd = new JButton("Add");
 		btnAdd.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//add a name only if the text is greater than 0 trimmed
-				if (txtName.getText().trim().length()>0){
-					nameA.addElement(txtName.getText());
-					txtName.setText(""); 					//clear text when added
-				}
+				addName(txtName.getText());
 			}
 		});
 		btnAdd.setBounds(148, 13, 65, 23);
@@ -196,7 +188,7 @@ public class Frame extends JFrame {
 		JLabel lblPartnerB = new JLabel("Partner B");
 		lblPartnerB.setBounds(223, 373, 65, 14);
 		contentPane.add(lblPartnerB);
-		
+
 		JButton btnClear = new JButton("Clear");
 		btnClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -206,16 +198,16 @@ public class Frame extends JFrame {
 		});
 		btnClear.setBounds(12, 405, 65, 23);
 		contentPane.add(btnClear);
-		
+
 		JLabel label = new JLabel("->");
 		label.setFont(new Font("Dialog", Font.PLAIN, 15));
 		label.setHorizontalAlignment(SwingConstants.CENTER);
 		label.setBounds(207, 198, 20, 14);
 		contentPane.add(label);
-		
+
 		JMenu mnAbout = new JMenu("About");
 		menuBar.add(mnAbout);
-		
+
 		JMenuItem mntmAbout = new JMenuItem("About...");
 		mntmAbout.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -225,6 +217,33 @@ public class Frame extends JFrame {
 		mnAbout.add(mntmAbout);
 
 	}
+
+	private void addName(String name){
+		String entry = name.trim();
+
+		//add a name only if the text is greater than 0 trimmed
+		if (entry.length() > 0){
+
+			boolean repeat = false;
+			for (int i =0; i < nameA.getSize(); i++){
+				if (nameA.get(i).equals(entry)){
+					repeat = true;
+				}
+			}
+
+
+			if (repeat == true){
+				//repeated name
+				JOptionPane.showMessageDialog(this, "This name is already on the list! Enter a different name.", "Error", JOptionPane.ERROR_MESSAGE);
+			}
+			else{
+				//no repeat
+				nameA.addElement(entry);
+				txtName.setText(""); 					//clear text when added
+			}
+		}
+	}
+
 
 	/**
 	 * Pairs up the list of names in A randomly with other members 
@@ -264,9 +283,9 @@ public class Frame extends JFrame {
 						validShuffle = false;
 					}
 				}
-				
+
 				retryCount++;
-				
+
 				if (retryCount >= RETRY_MAX){
 					int response = JOptionPane.showConfirmDialog(this, "Shuffler has tried " + RETRY_MAX + " times to pair the list but has had no success. It is likely that there is no solution for a small set of data. \n\nAbort?", "Application Deadlock", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if (response == JOptionPane.YES_OPTION){
