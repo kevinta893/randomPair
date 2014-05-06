@@ -4,7 +4,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JList;
-
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.border.BevelBorder;
@@ -22,10 +21,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.Random;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import javax.swing.SwingConstants;
+
+import java.awt.Color;
 
 
 /**
@@ -66,14 +67,21 @@ public class Frame extends JFrame {
 	private JList<String> listA;
 	private JList<String> listB;
 
+	private JButton btnRandomize;
+	private JButton btnMode;
+	
 	private DefaultListModel<String> nameA;
 	private DefaultListModel<String> nameB;
 
 	private Random rand = new MersenneTwister();
 
-
-	private static final int RETRY_MAX = 5000000;
-
+	private static final String NULL_NAME = "<<null>>";
+	
+	private static final Color BLUE = new Color (73,126,232);
+	private static final Color ORANGE = new Color (232,179,73);
+	
+	private boolean partnerUp = false;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -96,8 +104,11 @@ public class Frame extends JFrame {
 	public Frame() {
 		setTitle("Pair Up");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 500);
+		setBounds(100, 100, 500, 500);
 
+		Color themeColor = (partnerUp == true) ? ORANGE : BLUE;
+		
+		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
 
@@ -128,8 +139,8 @@ public class Frame extends JFrame {
 		this.listB = new JList<String>();
 		nameB = new DefaultListModel<String>();
 		listB.setModel(nameB);
-		listB.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		listB.setBounds(234, 45, 190, 322);
+		listB.setBorder(new BevelBorder(BevelBorder.LOWERED, themeColor, themeColor, themeColor, themeColor));
+		listB.setBounds(278, 45, 196, 322);
 		contentPane.add(listB);
 
 		this.listA = new JList<String>();
@@ -145,8 +156,8 @@ public class Frame extends JFrame {
 		});
 		nameA = new DefaultListModel<String>();
 		listA.setModel(nameA);
-		listA.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-		listA.setBounds(12, 45, 190, 322);
+		listA.setBorder(new BevelBorder(BevelBorder.LOWERED, themeColor, themeColor, themeColor, themeColor));
+		listA.setBounds(12, 45, 194, 322);
 		contentPane.add(listA);
 
 		txtName = new JTextField();
@@ -171,14 +182,24 @@ public class Frame extends JFrame {
 		btnAdd.setBounds(148, 13, 65, 23);
 		contentPane.add(btnAdd);
 
-		JButton btnRandomize = new JButton("Pair Up");
+		this.btnRandomize = new JButton("Pair Up");
+		btnRandomize.setBackground(themeColor);
 		btnRandomize.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				pairUp();
+				
+				if (partnerUp == true){
+					partnerUp();
+				}
+				else{
+					pairUp();
+				}
+				
 			}
 		});
 		btnRandomize.setFont(new Font("Tahoma", Font.BOLD, 14));
-		btnRandomize.setBounds(155, 398, 124, 32);
+		btnRandomize.setBounds(180, 398, 124, 32);
+		btnRandomize.setContentAreaFilled(false);
+		btnRandomize.setOpaque(true);	
 		contentPane.add(btnRandomize);
 
 		JLabel lblPartnerA = new JLabel("Partner A");
@@ -186,24 +207,51 @@ public class Frame extends JFrame {
 		contentPane.add(lblPartnerA);
 
 		JLabel lblPartnerB = new JLabel("Partner B");
-		lblPartnerB.setBounds(223, 373, 65, 14);
+		lblPartnerB.setBounds(278, 373, 65, 14);
 		contentPane.add(lblPartnerB);
 
-		JButton btnClear = new JButton("Clear");
+		JButton btnClear = new JButton("Clear list");
 		btnClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				nameA.clear();
 				nameB.clear();
 			}
 		});
-		btnClear.setBounds(12, 405, 65, 23);
+		btnClear.setBounds(12, 405, 79, 23);
 		contentPane.add(btnClear);
-
-		JLabel label = new JLabel("->");
-		label.setFont(new Font("Dialog", Font.PLAIN, 15));
-		label.setHorizontalAlignment(SwingConstants.CENTER);
-		label.setBounds(207, 198, 20, 14);
-		contentPane.add(label);
+		
+		btnMode = new JButton("->");
+		btnMode.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				//toggle the mode
+				partnerUp = (partnerUp == true) ? false : true;
+				
+				
+				
+				Color themeColor = (partnerUp == true) ? ORANGE : BLUE;
+				//update UI as appropriate
+				if (partnerUp == true){
+					themeColor = ORANGE;
+					
+					btnMode.setText("<->");
+					btnRandomize.setText("Partner Up");
+					btnRandomize.setBackground(themeColor);
+					
+				}
+				else{
+					btnMode.setText("->");
+					btnRandomize.setText("Pair Up");
+					btnRandomize.setBackground(themeColor);
+					
+				}
+				
+				listA.setBorder(new BevelBorder(BevelBorder.LOWERED, themeColor, themeColor, themeColor, themeColor));
+				listB.setBorder(new BevelBorder(BevelBorder.LOWERED, themeColor, themeColor, themeColor, themeColor));
+			}
+		});
+		btnMode.setBounds(216, 200, 52, 23);
+		contentPane.add(btnMode);
 
 		JMenu mnAbout = new JMenu("About");
 		menuBar.add(mnAbout);
@@ -244,7 +292,9 @@ public class Frame extends JFrame {
 		}
 	}
 
-
+	
+	
+	private static final int RETRY_MAX = 5000000;
 	/**
 	 * Pairs up the list of names in A randomly with other members 
 	 * in list A.
@@ -276,6 +326,8 @@ public class Frame extends JFrame {
 			while (validShuffle == false){
 
 				Collections.shuffle(raw, rand);
+				
+				//check for a valid shuffle
 				validShuffle = true;
 				for (int i =0; i < names.length ; i++){
 					if (names[i].equals(raw.get(i))){
@@ -286,6 +338,7 @@ public class Frame extends JFrame {
 
 				retryCount++;
 
+				//stop when the retry count too high
 				if (retryCount >= RETRY_MAX){
 					int response = JOptionPane.showConfirmDialog(this, "Shuffler has tried " + RETRY_MAX + " times to pair the list but has had no success. It is likely that there is no solution for a small set of data. \n\nAbort?", "Application Deadlock", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 					if (response == JOptionPane.YES_OPTION){
@@ -303,6 +356,68 @@ public class Frame extends JFrame {
 		}
 
 
+
+	}
+	
+	
+	private void partnerUp(){
+		if (nameA.size() <= 1){
+			JOptionPane.showMessageDialog(this, "Enter at least two items to start pair up.", "Information", JOptionPane.INFORMATION_MESSAGE);
+		}
+		else{
+			//clear the old list
+			nameB.clear();
+			
+
+			String[] names = new String[nameA.size()];
+			nameA.copyInto(names);
+
+			//convert array to collections
+			LinkedList<String> raw = new LinkedList<String>();
+			for (String s : names){
+				raw.add(s);
+			}
+
+			if ((raw.size() % 2) == 1){
+				//list size is odd, one of the pairs will not have a partner
+				raw.add(NULL_NAME);
+			}
+			
+			
+			//shuffle, ensure that pairing is not the same.
+			int retryCount = 0;
+			while (raw.size() > 0){
+
+				
+				int first = rand.nextInt(raw.size());
+				int second = rand.nextInt(raw.size());
+				while(first == second){
+					second = rand.nextInt(raw.size());
+					
+					retryCount++;
+					
+					//stop when the retry count too high
+					if (retryCount >= RETRY_MAX){
+						int response = JOptionPane.showConfirmDialog(this, "Shuffler has tried " + RETRY_MAX + " times to pair the list but has had no success. It is likely that there is no solution for a small set of data. \n\nAbort?", "Application Deadlock", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+						if (response == JOptionPane.YES_OPTION){
+							break;
+						}
+						retryCount =0;
+					}
+				}
+				
+				String strFirst = raw.get(first);
+				String strSecond = raw.get(second);
+				
+				raw.remove(strFirst);
+				raw.remove(strSecond);
+				
+				nameB.addElement("(" + strFirst + ", " + strSecond + ")");
+			}
+
+
+			
+		}
 
 	}
 }
